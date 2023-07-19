@@ -1,0 +1,164 @@
+[
+    {
+        "id": "001",
+        "titulo": "MARTILLO",
+        "imagen": "/img/mar1.png",
+        "categoria": "herramientas",
+        "descripcion": "madera",
+        "precio": 15000,
+        "stock": 20
+    },
+    {
+        "id": "002",
+        "titulo": "DESTORNILLADOR",
+        "imagen": "/img/des1.png",
+        "categoria": "herramientas",
+        "descripcion": "con iman",
+        "precio": 5000,
+        "stock": 20
+    },
+    {
+        "id": "003",
+        "titulo": "GRAMERA",
+        "imagen": "/img/gra1.png",
+        "categoria": "hogar",
+        "descripcion": "para café o comida",
+        "precio": 30000,
+        "stock": 20
+    },
+    {
+        "id": "004",
+        "titulo": "LAMPARA",
+        "imagen": "/img/lam1.png",
+        "categoria": "hogar",
+        "descripcion": "led",
+        "precio": 40000,
+        "stock": 20
+    },
+    {
+        "id": "005",
+        "titulo": "BOMBILLO",
+        "imagen": "/img/bo1.png",
+        "categoria": "hogar",
+        "descripcion": "led",
+        "precio": 8000,
+        "stock": 20
+    },
+    {
+        "id": "006",
+        "titulo": "TIMBRE",
+        "imagen": "/img/tim1.png",
+        "categoria": "construcción",
+        "descripcion": "con iman",
+        "precio": 25000,
+        "stock": 20
+    },
+    {
+        "id": "007",
+        "titulo": "TALADRO",
+        "imagen": "/img/tala1.png",
+        "categoria": "herramientas",
+        "descripcion": "inalambrico",
+        "precio": 130000,
+        "stock": 20
+    },
+    {
+        "id": "008",
+        "titulo": "CAJA CLAVO",
+        "imagen": "/img/cla1.png",
+        "categoria": "construccion",
+        "descripcion": "acero",
+        "precio": 5000,
+        "stock": 20
+    },
+    {
+        "id": "009",
+        "titulo": "ALICATE",
+        "imagen": "/img/alicate.png",
+        "categoria": "herramientas",
+        "descripcion": "acero",
+        "precio": 8000,
+        "stock": 20
+    },
+    {
+        "id": "010",
+        "titulo": "CEMENTO",
+        "imagen": "/img/cemento.png",
+        "categoria": "construccion",
+        "descripcion": "acero",
+        "precio": 40000,
+        "stock": 20
+    },
+    {
+        "id": "011",
+        "titulo": "CUBIERTOS",
+        "imagen": "/img/cubiertosH.png",
+        "categoria": "hogar",
+        "descripcion": "Hierro",
+        "precio": 25000,
+        "stock": 20
+    },
+    {
+        "id": "012",
+        "titulo": "CUBIERTOS",
+        "imagen": "/img/utenmadera.png",
+        "categoria": "hogar",
+        "descripcion": "madera",
+        "precio": 50000,
+        "stock": 20
+    },
+    {
+        "id": "013",
+        "titulo": "MANIJA",
+        "imagen": "/img/manija.png",
+        "categoria": "hogar",
+        "descripcion": "Hierro",
+        "precio": 35000,
+        "stock": 20
+    },
+    {
+        "id": "014",
+        "titulo": "GRIFO",
+        "imagen": "/img/grifo.png",
+        "categoria": "hogar",
+        "descripcion": "Hierro",
+        "precio": 40000,
+        "stock": 20
+    },
+    {
+        "id": "015",
+        "titulo": "SARTEN",
+        "imagen": "/img/sarten.png",
+        "categoria": "hogar",
+        "descripcion": "Hierro",
+        "precio": 75000,
+        "stock": 20
+    },
+    {
+        "id": "016",
+        "titulo": "OLLA",
+        "imagen": "/img/olla.png",
+        "categoria": "hogar",
+        "descripcion": "Hierro",
+        "precio": 100000,
+        "stock": 20
+    },
+    {
+        "id": "017",
+        "titulo": "TUBO DE PVC",
+        "imagen": "/img/pvc.png",
+        "categoria": "construccion",
+        "descripcion": "Hierro",
+        "precio": 24000,
+        "stock": 20
+    },
+    {
+        "id": "018",
+        "titulo": "SERRUCHO",
+        "imagen": "/img/serr.png",
+        "categoria": "herramientas",
+        "descripcion": "Hierro",
+        "precio": 12000,
+        "stock": 20
+    }
+]
