@@ -34,9 +34,7 @@ function NavBar() {
                         </Link>
                     </Nav>
                     <Nav>
-                        <Link to="#CartWidget">
-                            <CartWidget />
-                        </Link>
+                        <CartWidget />
                     </Nav>
                 </Navbar.Collapse>
             </Container>

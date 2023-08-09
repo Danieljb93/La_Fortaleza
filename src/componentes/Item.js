@@ -5,11 +5,17 @@ const Item = ({ item }) => {
     return (
         <Link to={"/item/" + item.id} className="text-decoration-none">
             <div className="container">
-                <div className="card ">
-                    <img src={item.imagen} className="card-img-top" alt={item.titulo} />
+                <div className="card mb-3 border-2 border-dark">
+                    <img
+                        src={item.imagen}
+                        className="card-img-top bg-white "
+                        alt={item.titulo}
+                        style={{ width: "200px", height: "200px" }}
+                    />
                     <div className="card-body text-center">
-                        <p className="card-text">{item.titulo}</p>
-                        <p className="card-text">{item.precio}</p>
+                        <p className="card-text bg-black text-white p-2">{item.titulo}</p>
+                        <p className="card-text bg-black text-white p-2">{item.descripcion}</p>
+                        <p className="card-text">Precio: ${item.precio}</p>
                     </div>
                 </div>
             </div>

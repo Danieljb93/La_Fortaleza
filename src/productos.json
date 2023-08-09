@@ -4,7 +4,7 @@
         "titulo": "MARTILLO",
         "imagen": "/img/mar1.png",
         "categoria": "herramientas",
-        "descripcion": "madera",
+        "descripcion": "Martillo de madera, ideal para trabajos en el hogar y la construcción.",
         "precio": 15000,
         "stock": 20
     },
@@ -13,7 +13,7 @@
         "titulo": "DESTORNILLADOR",
         "imagen": "/img/des1.png",
         "categoria": "herramientas",
-        "descripcion": "con iman",
+        "descripcion": "Destornillador con imán, perfecto para trabajos que requieren manejar tornillos de forma eficiente.",
         "precio": 5000,
         "stock": 20
     },
@@ -22,7 +22,7 @@
         "titulo": "GRAMERA",
         "imagen": "/img/gra1.png",
         "categoria": "hogar",
-        "descripcion": "para café o comida",
+        "descripcion": "Gramera para café o comida, un elemento esencial en la cocina.",
         "precio": 30000,
         "stock": 20
     },
@@ -31,7 +31,7 @@
         "titulo": "LAMPARA",
         "imagen": "/img/lam1.png",
         "categoria": "hogar",
-        "descripcion": "led",
+        "descripcion": "Lámpara LED, ideal para iluminar cualquier espacio con eficiencia energética.",
         "precio": 40000,
         "stock": 20
     },
@@ -40,7 +40,7 @@
         "titulo": "BOMBILLO",
         "imagen": "/img/bo1.png",
         "categoria": "hogar",
-        "descripcion": "led",
+        "descripcion": "Bombillo LED, ahorra energía y brinda una iluminación de calidad.",
         "precio": 8000,
         "stock": 20
     },
@@ -49,7 +49,7 @@
         "titulo": "TIMBRE",
         "imagen": "/img/tim1.png",
         "categoria": "construcción",
-        "descripcion": "con iman",
+        "descripcion": "Timbre con imán, fácil de instalar en puertas y paredes metálicas.",
         "precio": 25000,
         "stock": 20
     },
@@ -58,7 +58,7 @@
         "titulo": "TALADRO",
         "imagen": "/img/tala1.png",
         "categoria": "herramientas",
-        "descripcion": "inalambrico",
+        "descripcion": "Taladro inalámbrico, ideal para perforar diversos materiales con comodidad.",
         "precio": 130000,
         "stock": 20
     },
@@ -67,7 +67,7 @@
         "titulo": "CAJA CLAVO",
         "imagen": "/img/cla1.png",
         "categoria": "construccion",
-        "descripcion": "acero",
+        "descripcion": "Caja de clavos de acero, resistente y duradera.",
         "precio": 5000,
         "stock": 20
     },
@@ -76,7 +76,7 @@
         "titulo": "ALICATE",
         "imagen": "/img/alicate.png",
         "categoria": "herramientas",
-        "descripcion": "acero",
+        "descripcion": "Alicate de acero, perfecto para trabajos de precisión y agarre.",
         "precio": 8000,
         "stock": 20
     },
@@ -85,7 +85,7 @@
         "titulo": "CEMENTO",
         "imagen": "/img/cemento.png",
         "categoria": "construccion",
-        "descripcion": "acero",
+        "descripcion": "Bolsa de cemento de alta calidad, ideal para proyectos de construcción.",
         "precio": 40000,
         "stock": 20
     },
@@ -94,7 +94,7 @@
         "titulo": "CUBIERTOS",
         "imagen": "/img/cubiertosH.png",
         "categoria": "hogar",
-        "descripcion": "Hierro",
+        "descripcion": "Juego de cubiertos de hierro, resistentes y duraderos.",
         "precio": 25000,
         "stock": 20
     },
@@ -103,7 +103,7 @@
         "titulo": "CUBIERTOS",
         "imagen": "/img/utenmadera.png",
         "categoria": "hogar",
-        "descripcion": "madera",
+        "descripcion": "Juego de cubiertos de madera, agregan un toque natural a la mesa.",
         "precio": 50000,
         "stock": 20
     },
@@ -112,7 +112,7 @@
         "titulo": "MANIJA",
         "imagen": "/img/manija.png",
         "categoria": "hogar",
-        "descripcion": "Hierro",
+        "descripcion": "Manija de hierro para puertas o muebles, resistente y fácil de instalar.",
         "precio": 35000,
         "stock": 20
     },
@@ -121,7 +121,7 @@
         "titulo": "GRIFO",
         "imagen": "/img/grifo.png",
         "categoria": "hogar",
-        "descripcion": "Hierro",
+        "descripcion": "Grifo de hierro, perfecto para instalar en lavamanos y fregaderos.",
         "precio": 40000,
         "stock": 20
     },
@@ -130,7 +130,7 @@
         "titulo": "SARTEN",
         "imagen": "/img/sarten.png",
         "categoria": "hogar",
-        "descripcion": "Hierro",
+        "descripcion": "Sartén de hierro, ideal para cocinar con distribución uniforme del calor.",
         "precio": 75000,
         "stock": 20
     },
@@ -139,7 +139,7 @@
         "titulo": "OLLA",
         "imagen": "/img/olla.png",
         "categoria": "hogar",
-        "descripcion": "Hierro",
+        "descripcion": "Olla de hierro, perfecta para cocinar guisos y platos tradicionales.",
         "precio": 100000,
         "stock": 20
     },
@@ -148,7 +148,7 @@
         "titulo": "TUBO DE PVC",
         "imagen": "/img/pvc.png",
         "categoria": "construccion",
-        "descripcion": "Hierro",
+        "descripcion": "Tubo de PVC resistente, ideal para canalizaciones y proyectos de plomería.",
         "precio": 24000,
         "stock": 20
     },
@@ -157,7 +157,7 @@
         "titulo": "SERRUCHO",
         "imagen": "/img/serr.png",
         "categoria": "herramientas",
-        "descripcion": "Hierro",
+        "descripcion": "Serrucho de hierro, ideal para trabajos de corte en madera y otros materiales.",
         "precio": 12000,
         "stock": 20
     }
