@@ -1,15 +1,27 @@
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+
 import { useContext, useState } from "react";
 import React from "react";
 import { CartContext1 } from "./CartContext1";
 
 export const Checkout = () => {
+    const { setCart } = useContext(CartContext1);
     const [orderId, setOrderId] = useState();
     const [buyer, setBuyer] = useState({
         Nombre: "",
         Email: "",
         Telefono: "",
     });
+    const updateStockInFirebase = async (itemId, newStock) => {
+        const querydb = getFirestore();
+        const itemDoc = doc(querydb, "productos", itemId);
+
+        try {
+            await updateDoc(itemDoc, { stock: newStock });
+        } catch (error) {
+            console.error("Error updating stock in Firebase:", error);
+        }
+    };
     const { Nombre, Email, Telefono } = buyer;
 
     const { cart } = useContext(CartContext1);
@@ -30,11 +42,38 @@ export const Checkout = () => {
         await generateOrder(data);
         setTotal(totalValue); // Actualiza el valor del total en el estado
     };
+    const handleCancel = async () => {
+        // Restaurar el stock en Firebase y vaciar el carrito
+        try {
+            const querydb = getFirestore();
+
+            for (const cartItem of cart) {
+                const itemDoc = doc(querydb, "productos", cartItem.id);
+                const currentDoc = await getDoc(itemDoc);
+                const currentStock = currentDoc.data().stock;
+                const newStock = currentStock + cartItem.cantidad;
+
+                await updateDoc(itemDoc, { stock: newStock });
+            }
+
+            // Restablecer el carrito a un estado vacío
+            setCart([]);
+        } catch (error) {
+            console.error("Error canceling purchase:", error);
+        }
+    };
 
     const generateOrder = async (data) => {
         const querydb = getFirestore();
         const queryCollection = collection(querydb, "Orders");
         const order = await addDoc(queryCollection, data);
+
+        // Actualizar el stock para cada producto en el carrito
+        cart.forEach((cartItem) => {
+            const newStock = cartItem.stock - cartItem.cantidad;
+            updateStockInFirebase(cartItem.id, newStock);
+        });
+
         setOrderId(order.id);
     };
 
@@ -48,6 +87,7 @@ export const Checkout = () => {
                     <input type="email" name="Email" placeholder="Email" value={Email} onChange={handleInputChange} required />
                     <input type="number" name="Telefono" placeholder="Telefono" value={Telefono} onChange={handleInputChange} />
                     <input type="submit" value="Confirmar Compra" />
+                    <button onClick={handleCancel}>Cancelar compra</button>
                 </form>
             )}
             {orderId && (

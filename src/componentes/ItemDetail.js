@@ -6,19 +6,25 @@ import { CartContext1 } from "../componentes/CartContext1";
 const ItemDetail = ({ item }) => {
     const [stock, setStock] = useState(item.stock);
     const { addItem } = useContext(CartContext1);
+    const [initialStock, setInitialStock] = useState(item.stock);
+
+    const handleCancelPurchase = () => {
+        setStock(initialStock);
+        // Aquí también puedes borrar el carrito si es necesario
+    };
 
     const handleOnAdd = (count) => {
         addItem({ id: item.id, price: item.precio, name: item.titulo, img: item.imagen }, count);
-        updateStockInFirebase(stock - count); // Disminuir el stock después de la compra
+        updateStockInFirebase(item.id, stock - count);
     };
 
-    const updateStockInFirebase = async (newStock) => {
+    const updateStockInFirebase = async (itemId, newStock) => {
         const querydb = getFirestore();
-        const itemDoc = doc(querydb, "productos", item.id);
+        const itemDoc = doc(querydb, "productos", itemId);
 
         try {
             await updateDoc(itemDoc, { stock: newStock });
-            setStock(newStock); // Actualizar el estado local con el nuevo valor del stock
+            setStock(newStock);
         } catch (error) {
             console.error("Error updating stock in Firebase:", error);
         }
@@ -34,6 +40,7 @@ const ItemDetail = ({ item }) => {
                     if (docSnapshot.exists()) {
                         const stockFromFirebase = docSnapshot.data().stock;
                         setStock(stockFromFirebase);
+                        setInitialStock(stockFromFirebase); // Actualizar initialStock también
                     }
                 } catch (error) {
                     console.error("Error fetching stock from Firebase:", error);
@@ -58,6 +65,7 @@ const ItemDetail = ({ item }) => {
                             <p className="card-text bg-black text-white p-2">Precio: {item.precio}</p>
                             <p className="card-text">Cantidad: {stock}</p>
                             <ItemCount stockItems={stock} item={item} onAdd={handleOnAdd} />
+                            <button onClick={handleCancelPurchase}>Cancelar compra</button>
                         </div>
                     </div>
                 </div>
