@@ -1,30 +1,29 @@
 import React, { useState, useContext, useEffect } from "react";
 import ItemCount from "../componentes/ItemCount";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+
+import { doc, getFirestore, updateDoc, getDoc } from "firebase/firestore";
 import { CartContext1 } from "../componentes/CartContext1";
 
 const ItemDetail = ({ item }) => {
     const [stock, setStock] = useState(item.stock);
-    const { addItem } = useContext(CartContext1);
-    const [initialStock, setInitialStock] = useState(item.stock);
+    const { addItem, clearCart } = useContext(CartContext1);
 
     const handleCancelPurchase = () => {
-        setStock(initialStock);
-        // Aquí también puedes borrar el carrito si es necesario
+        setStock(item.stock);
+        clearCart();
     };
 
     const handleOnAdd = (count) => {
         addItem({ id: item.id, price: item.precio, name: item.titulo, img: item.imagen }, count);
         updateStockInFirebase(item.id, stock - count);
     };
-
     const updateStockInFirebase = async (itemId, newStock) => {
         const querydb = getFirestore();
         const itemDoc = doc(querydb, "productos", itemId);
 
         try {
             await updateDoc(itemDoc, { stock: newStock });
-            setStock(newStock);
+            setStock(newStock); // Actualizar el estado local con el nuevo stock
         } catch (error) {
             console.error("Error updating stock in Firebase:", error);
         }
@@ -40,10 +39,9 @@ const ItemDetail = ({ item }) => {
                     if (docSnapshot.exists()) {
                         const stockFromFirebase = docSnapshot.data().stock;
                         setStock(stockFromFirebase);
-                        setInitialStock(stockFromFirebase); // Actualizar initialStock también
                     }
                 } catch (error) {
-                    console.error("Error fetching stock from Firebase:", error);
+                    console.error("Error al obtener el stock desde Firebase:", error);
                 }
             };
 

@@ -1,28 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, doc, getDoc } from "firebase/firestore"; // Importa las funciones adecuadas de firestore
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 const ItemCount = ({ item, onAdd }) => {
     const [counter, setCounter] = useState(1);
     const [stock, setStock] = useState(0);
+    const [addedToCart, setAddedToCart] = useState(false);
 
     useEffect(() => {
-        const fetchStockFromFirebase = async () => {
-            const firestore = getFirestore(); // Obtiene una instancia de Firestore
-            const itemDocRef = doc(firestore, "productos", item.id); // Referencia al documento en Firestore
+        if (item && item.id) {
+            const fetchStockFromFirebase = async () => {
+                const firestore = getFirestore();
+                const itemDocRef = doc(firestore, "productos", item.id);
 
-            try {
-                const itemSnapshot = await getDoc(itemDocRef);
-                if (itemSnapshot.exists()) {
-                    const data = itemSnapshot.data();
-                    setStock(data.stock);
+                try {
+                    const itemSnapshot = await getDoc(itemDocRef);
+                    if (itemSnapshot.exists()) {
+                        const data = itemSnapshot.data();
+                        if (data && data.stock !== undefined) {
+                            setStock(data.stock);
+                        } else {
+                            console.error("Stock data is undefined or missing.");
+                        }
+                    } else {
+                        console.error("Item does not exist in Firestore.");
+                    }
+                } catch (error) {
+                    console.error("Error fetching stock from Firebase:", error);
                 }
-            } catch (error) {
-                console.error("Error fetching stock from Firebase:", error);
-            }
-        };
+            };
 
-        fetchStockFromFirebase();
-    }, [item.id]);
+            fetchStockFromFirebase();
+        }
+    }, [item]);
 
     const incrementarStock = () => {
         if (counter < stock) {
@@ -38,6 +48,7 @@ const ItemCount = ({ item, onAdd }) => {
 
     const handleAgregarAlCarrito = () => {
         onAdd(counter);
+        setAddedToCart(true);
     };
 
     return (
@@ -63,6 +74,19 @@ const ItemCount = ({ item, onAdd }) => {
                         Agregar al carrito
                     </button>
                 </div>
+                {addedToCart && (
+                    <div className="col-md-4">
+                        <Link
+                            to={{
+                                pathname: "/cart",
+                            }}
+                        >
+                            <button type="button" className="btn btn-success">
+                                Ir al carrito
+                            </button>
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

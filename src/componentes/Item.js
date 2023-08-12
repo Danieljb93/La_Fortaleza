@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Item = ({ item }) => {
+    const cantidadText = isNaN(item.stock) ? "sin stock" : `cantidad: ${item.stock}`;
+
     return (
         <Link to={"/item/" + item.id} className="text-decoration-none">
             <div className="container">
@@ -14,7 +16,8 @@ const Item = ({ item }) => {
                     />
                     <div className="card-body text-center">
                         <p className="card-text bg-black text-white p-2">{item.titulo}</p>
-                        <p className="card-text bg-black text-white p-2">{item.descripcion}</p>
+
+                        <p className="card-text bg-black text-white p-2">{cantidadText}</p>
                         <p className="card-text">Precio: ${item.precio}</p>
                     </div>
                 </div>

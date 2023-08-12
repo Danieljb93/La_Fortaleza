@@ -1,8 +1,7 @@
+import React, { useContext, useState } from "react";
 import { addDoc, collection, getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
-
-import { useContext, useState } from "react";
-import React from "react";
 import { CartContext1 } from "./CartContext1";
+import { Link } from "react-router-dom";
 
 export const Checkout = () => {
     const { setCart } = useContext(CartContext1);
@@ -10,8 +9,12 @@ export const Checkout = () => {
     const [buyer, setBuyer] = useState({
         Nombre: "",
         Email: "",
+        ConfirmarEmail: "",
         Telefono: "",
     });
+
+    const [total, setTotal] = useState(0);
+
     const updateStockInFirebase = async (itemId, newStock) => {
         const querydb = getFirestore();
         const itemDoc = doc(querydb, "productos", itemId);
@@ -22,8 +25,8 @@ export const Checkout = () => {
             console.error("Error updating stock in Firebase:", error);
         }
     };
-    const { Nombre, Email, Telefono } = buyer;
 
+    const { Nombre, Email, ConfirmarEmail, Telefono } = buyer;
     const { cart } = useContext(CartContext1);
 
     const handleInputChange = (e) => {
@@ -32,16 +35,28 @@ export const Checkout = () => {
             [e.target.name]: e.target.value,
         });
     };
-    const [total, setTotal] = useState(0); // Define total y setTotal en el estado
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const totalValue = cart.reduce((acum, unItem) => acum + unItem.price * unItem.cantidad, 0);
+
+        if (Email !== ConfirmarEmail) {
+            alert("Las direcciones de correo electrónico no coinciden.");
+            return;
+        }
+
+        const totalAPagar = cart.reduce((total, item) => {
+            const itemTotal = item.price * item.cant;
+            return total + itemTotal;
+        }, 0);
         const dia = new Date();
-        const data = { buyer, cart, total: totalValue, dia };
+        const data = { buyer, cart, total: totalAPagar, dia };
         await generateOrder(data);
-        setTotal(totalValue); // Actualiza el valor del total en el estado
+        setTotal(totalAPagar);
+
+        // Vaciar el carrito y restaurar el stock
+        handleCancel();
     };
+
     const handleCancel = async () => {
         // Restaurar el stock en Firebase y vaciar el carrito
         try {
@@ -56,8 +71,10 @@ export const Checkout = () => {
                 await updateDoc(itemDoc, { stock: newStock });
             }
 
-            // Restablecer el carrito a un estado vacío
-            setCart([]);
+            // Restablecer el carrito a un estado vacío solo si hay elementos en el carrito
+            if (cart.length > 0) {
+                setCart([]);
+            }
         } catch (error) {
             console.error("Error canceling purchase:", error);
         }
@@ -68,35 +85,80 @@ export const Checkout = () => {
         const queryCollection = collection(querydb, "Orders");
         const order = await addDoc(queryCollection, data);
 
-        // Actualizar el stock para cada producto en el carrito
-        cart.forEach((cartItem) => {
+        // Itera a través de los elementos en el carrito y actualiza el stock para cada elemento
+        for (const cartItem of cart) {
             const newStock = cartItem.stock - cartItem.cantidad;
             updateStockInFirebase(cartItem.id, newStock);
-        });
+        }
 
         setOrderId(order.id);
     };
-
     return (
-        <>
-            <h1>Formulario</h1>
-            <hr />
+        <div className="container mt-5">
             {!orderId && (
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="Nombre" placeholder="Nombre" value={Nombre} onChange={handleInputChange} required />
-                    <input type="email" name="Email" placeholder="Email" value={Email} onChange={handleInputChange} required />
-                    <input type="number" name="Telefono" placeholder="Telefono" value={Telefono} onChange={handleInputChange} />
-                    <input type="submit" value="Confirmar Compra" />
-                    <button onClick={handleCancel}>Cancelar compra</button>
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            name="Nombre"
+                            placeholder="Nombre"
+                            value={Nombre}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="email"
+                            name="Email"
+                            placeholder="Email"
+                            value={Email}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="email"
+                            name="ConfirmarEmail"
+                            placeholder="Confirmar Email"
+                            value={ConfirmarEmail}
+                            onChange={handleInputChange}
+                            className="form-control"
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="number"
+                            name="Telefono"
+                            placeholder="Telefono"
+                            value={Telefono}
+                            onChange={handleInputChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                        Confirmar Compra
+                    </button>
+                    <button onClick={handleCancel} className="btn btn-danger">
+                        Cancelar compra
+                    </button>
                 </form>
             )}
             {orderId && (
-                <>
-                    <h1>Felicitafciones, tu compra se realizo con exito</h1>
-                    <h3>Tu ID de compra es: {orderId}</h3>
-                    <h3>El valor total es: ${total}</h3> {/* Muestra el total calculado */}
-                </>
+                <div className="mt-5 bg-warning p-4 rounded">
+                    <h3 className="mb-3">¡Felicitaciones, tu compra se realizó con éxito!</h3>
+                    <hr />
+                    <h4 className="mb-2">Tu ID de compra es: {orderId}</h4>
+                    <h4>El valor total es: ${total}</h4>
+                    <Link to="/" className="btn btn-primary mt-3">
+                        Volver a comprar
+                    </Link>
+                </div>
             )}
-        </>
+        </div>
     );
 };
