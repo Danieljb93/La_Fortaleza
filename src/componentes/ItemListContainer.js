@@ -28,7 +28,7 @@ const ItemListContainer = () => {
     return (
         <div className="container">
             {load ? (
-                <p>Cargando...</p> // Puedes personalizar este mensaje de carga como prefieras.
+                <p>Cargando...</p>
             ) : (
                 <div className="row">
                     <ItemList item={item} />
